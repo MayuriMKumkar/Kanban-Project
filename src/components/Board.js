@@ -3,12 +3,16 @@ import { useSelector } from "react-redux";
 import { Card } from './Card'
 import {ElementIcon} from './ElementIcon';
 
+
 const Board = () => {
+    // Select data from the Redux store
     const {tickets, dataSelected, user,users } = useSelector((state) => state.dataSlice);
 
     return (
         <>
+        {/* Dashboard component */}
             <div className="container" style={{ paddingTop:"10px",justifyContent: "space-evenly" }}>
+                {/* Loop through the dataSelected array */}
                 {dataSelected?.map((item, index) => {
                     return (
                         <>
@@ -46,6 +50,7 @@ const Board = () => {
                                         <button style={{ letterSpacing: "2px", fontWeight: "bold", paddingRight: "10px", background: "transparent", border: "none" }}>...</button>
                                     </div>
                                 </div>
+                                {/* Render Card component */}
                                 <div className="flex-gap-10">
                                     {item[index]?.value?.map((it, ind) => {
                                         return (

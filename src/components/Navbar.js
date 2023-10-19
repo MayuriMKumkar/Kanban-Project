@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectData } from '../redux/action';
 import { BsFilterLeft } from "react-icons/bs"
 
+//get groupBy filter status from local storage
 const getGroup = () => {
     if (localStorage.getItem("group")) {
         return localStorage.getItem("group");
@@ -11,6 +12,7 @@ const getGroup = () => {
     }
 };
 
+//get orderBy filter status from local storage
 const getOrder = () => {
     if (localStorage.getItem("order")) {
         return localStorage.getItem("order");
@@ -29,24 +31,24 @@ const Navbar = () => {
 
     const formRef = useRef(null);
 
+    // Function to handle changes in grouping and ordering options
     const handleGroups = (e, value) => {
         setIsOpen(!isOpen);
         if (value) {
             setGroupBy(e.target.value);
-            localStorage.setItem("group", e.target.value);
+            localStorage.setItem("group", e.target.value); //storing grouping option in localStorage
         } else {
             setOrderBy(e.target.value);
-            localStorage.setItem("order", e.target.value);
+            localStorage.setItem("order", e.target.value); //storing order option in localStorage
         }
     };
 
-    useEffect(()=>{
-        if(groupBy === "user")
-        {
-            dispatch(selectData(groupBy,{tickets,users},orderBy));
+    useEffect(() => {
+        if (groupBy === "user") {
+            dispatch(selectData(groupBy, { tickets, users }, orderBy));
         }
         else {
-            dispatch(selectData(groupBy,tickets,orderBy));
+            dispatch(selectData(groupBy, tickets, orderBy));
         }
     }, [dispatch, tickets, groupBy, users, orderBy]);
 
@@ -66,20 +68,20 @@ const Navbar = () => {
     }, []);
 
     return (
-        <div style={{ paddingLeft: "10px", margin:"10px" }}>
+        <div style={{ paddingLeft: "10px", margin: "10px" }}>
             <div className="display-options" ref={formRef}>
                 <button
                     className="display-btn"
-                    style={{fontSize:"16px", padding:"5px 10px"}}
+                    style={{ fontSize: "16px", padding: "5px 10px" }}
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <BsFilterLeft/>
+                    <BsFilterLeft />
                     &nbsp;
                     Display
                 </button>
                 {isOpen && (
                     <>
-                        <div className="dropdown-options flex-gap-10" style={{padding:"5px 10px"}}>
+                        <div className="dropdown-options flex-gap-10" style={{ padding: "5px 10px" }}>
                             <div className="group-select flex-sb">
                                 <span>Grouping</span>
                                 <select

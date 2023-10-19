@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { selectData } from '../redux/action';
 import { BsFilterLeft } from "react-icons/bs"
@@ -27,6 +27,8 @@ const Navbar = () => {
     const [groupBy, setGroupBy] = useState(getGroup());
     const [orderBy, setOrderBy] = useState(getOrder());
 
+    const formRef = useRef(null);
+
     const handleGroups = (e, value) => {
         setIsOpen(!isOpen);
         if (value) {
@@ -48,9 +50,24 @@ const Navbar = () => {
         }
     }, [dispatch, tickets, groupBy, users, orderBy]);
 
+    useEffect(() => {
+        // Add event listener to detect clicks outside the form
+        const handleClickOutside = (e) => {
+            if (formRef.current && !formRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div style={{ paddingLeft: "10px", margin:"10px" }}>
-            <div className="display-options">
+            <div className="display-options" ref={formRef}>
                 <button
                     className="display-btn"
                     style={{fontSize:"16px", padding:"5px 10px"}}
@@ -77,7 +94,7 @@ const Navbar = () => {
                                     <option value="priority">Priority</option>
                                 </select>
                             </div>
-                            <div className="order-select flex-sb">
+                            <div className="flex-sb">
                                 <span>Ordering</span>
                                 <select
                                     value={orderBy}

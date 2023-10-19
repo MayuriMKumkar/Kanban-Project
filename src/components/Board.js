@@ -5,16 +5,11 @@ import {ElementIcon} from './ElementIcon';
 
 const Board = () => {
     const {tickets, dataSelected, user,users } = useSelector((state) => state.dataSlice);
-    // const userIds = dataSelected?.map((data) => parseInt(data.userId?.split("-")[1] - 1));
-    
-    // console.log(userIds);
-    // console.log(dataSelected);
-    // console.log(users);
+
     return (
         <>
             <div className="container" style={{ paddingTop:"10px",justifyContent: "space-evenly" }}>
                 {dataSelected?.map((item, index) => {
-                    // console.log(item);
                     return (
                         <>
                             <div key={index} className="dashboardContainer">
@@ -43,7 +38,7 @@ const Board = () => {
                                         )}
                                         <span style={{fontWeight:"600"}}>
                                             {" "}
-                                             {item[index]?.title} 
+                                             {item[index]?.title} - {item[index]?.value?.length}
                                         </span>
                                     </div>
                                     <div >
@@ -54,7 +49,7 @@ const Board = () => {
                                 <div className="flex-gap-10">
                                     {item[index]?.value?.map((it, ind) => {
                                         return (
-                                            <Card id={it.id} title={it.title} tag={it.tag} user={user} name = {it.userId} users = {users} />
+                                            <Card id={it.id} title={it.title} tag={it.tag} name = {it.userId} users = {users} />
                                         );
                                     })}
                                 </div>

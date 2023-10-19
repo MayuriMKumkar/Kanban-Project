@@ -29,7 +29,7 @@ export const ElementIcon=({ element }) => {
     }
 
     return (
-        <div className="iconContainer relative" style={{ display: 'inline-block' }}>
+        <div style={{position:"relative" ,display: 'inline-block' }}>
             <IconComponent size={15} />
         </div>
     );
